@@ -1,0 +1,16 @@
+# Everything needed to run the full project (EDA, training, API, load test).
+# For a GPU machine, install the matching torch build first: https://pytorch.org/get-started/locally/
+torch>=2.2
+transformers>=4.46,<5
+accelerate>=0.26   # required by the Hugging Face Trainer
+datasets>=2.19
+scikit-learn>=1.4
+pandas>=2.1
+numpy>=1.26
+matplotlib>=3.8
+joblib>=1.3
+
+# Serving
+fastapi>=0.110
+uvicorn>=0.29
+requests>=2.31

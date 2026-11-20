@@ -1,0 +1,5 @@
+# Minimal dependencies for the Docker image (inference only).
+# torch is installed separately in the Dockerfile (CPU-only build).
+transformers>=4.46,<5
+fastapi>=0.110
+uvicorn>=0.29

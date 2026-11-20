@@ -1,0 +1,6 @@
+# Only the files the Docker image actually needs are sent to the build
+*
+!app/
+!models/distilbert-complaints/
+!requirements-api.txt
+**/__pycache__

@@ -1,0 +1,42 @@
+# Runs 3 identical copies (pods) of the API so requests are handled in parallel.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: complaint-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: complaint-api
+  template:
+    metadata:
+      labels:
+        app: complaint-api
+    spec:
+      containers:
+        - name: complaint-api
+          image: complaint-api:latest
+          imagePullPolicy: Never # use the image built inside Minikube, don't pull from a registry
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+          # Only send traffic to a pod once the model has loaded
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 5
+          # Restart the pod if it stops responding
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
